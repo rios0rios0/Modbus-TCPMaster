@@ -14,6 +14,7 @@ modbus-tcpmaster/
 │   │   └── code-review/
 │   │       └── SKILL.md          # Copilot code-review skill for this repo
 │   └── workflows/
+│       ├── checks.yaml           # PR gate — rebase and changelog checks (reusable workflow)
 │       ├── release.yaml          # Automated release pipeline (reusable workflow)
 │       ├── claude-review.yaml    # Claude automated PR review (reusable workflow)
 │       └── claude-mention.yaml   # @claude mention responder (reusable workflow)
@@ -76,7 +77,7 @@ modbus-tcpmaster/
 
 ## CI / Release
 
-A `release.yaml` workflow runs on every push to `main` and delegates to a reusable pipeline in `rios0rios0/pipelines`. Two event-driven workflows — `claude-review.yaml` (automated pull-request review) and `claude-mention.yaml` (`@claude` mention responder) — call the matching reusable workflows in `rios0rios0/pipelines` and authenticate with the `CLAUDE_CODE_OAUTH_TOKEN` secret. There is no build or test CI — builds are performed locally with Visual Studio or MSBuild on Windows.
+A `release.yaml` workflow runs on every push to `main` and delegates to a reusable pipeline in `rios0rios0/pipelines`. A `checks.yaml` workflow runs on every pull request targeting `main` and delegates to the shared `checks.yaml` in `rios0rios0/pipelines` — the rebase and changelog-fragment gate. Two event-driven workflows — `claude-review.yaml` (automated pull-request review) and `claude-mention.yaml` (`@claude` mention responder) — call the matching reusable workflows in `rios0rios0/pipelines` and authenticate with the `CLAUDE_CODE_OAUTH_TOKEN` secret. There is no build or compile CI — builds are performed locally with Visual Studio or MSBuild on Windows.
 
 ## Build Commands
 
